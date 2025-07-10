@@ -36,36 +36,43 @@ public class AcDevicePermission implements Serializable {
 	/**主键*/
 	@TableId(type = IdType.ASSIGN_ID)
     @Schema(description = "主键")
-    private java.lang.String id;
+    private String id;
 	/**用户ID*/
-	@Excel(name = "用户ID", width = 15)
+	@Excel(name = "用户ID", width = 15, dictTable = "sys_user", dicText = "username", dicCode = "id")
+	@Dict(dictTable = "sys_user", dicText = "username", dicCode = "id")
     @Schema(description = "用户ID")
-    private java.lang.String userId;
+    private String userId;
+	/**冗余用户名*/
+	@Excel(name = "冗余用户名", width = 15)
+    @Schema(description = "冗余用户名")
+    private String username;
 	/**设备ID*/
-	@Excel(name = "设备ID", width = 15)
+	@Excel(name = "设备ID", width = 15, dictTable = "ac_devices", dicText = "brand", dicCode = "id")
+	@Dict(dictTable = "ac_devices", dicText = "brand", dicCode = "id")
     @Schema(description = "设备ID")
-    private java.lang.String deviceId;
+    private String deviceId;
 	/**可用状态*/
-	@Excel(name = "可用状态", width = 15)
+	@Excel(name = "可用状态", width = 15, dicCode = "y_or_n")
+	@Dict(dicCode = "y_or_n")
     @Schema(description = "可用状态")
-    private java.lang.String useStatus;
+    private String useStatus;
 	/**创建人*/
     @Schema(description = "创建人")
-    private java.lang.String createBy;
+    private String createBy;
 	/**创建日期*/
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Schema(description = "创建日期")
-    private java.util.Date createTime;
+    private Date createTime;
 	/**更新人*/
     @Schema(description = "更新人")
-    private java.lang.String updateBy;
+    private String updateBy;
 	/**更新日期*/
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Schema(description = "更新日期")
-    private java.util.Date updateTime;
+    private Date updateTime;
 	/**所属部门*/
     @Schema(description = "所属部门")
-    private java.lang.String sysOrgCode;
+    private String sysOrgCode;
 }

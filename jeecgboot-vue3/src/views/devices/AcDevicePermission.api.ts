@@ -1,44 +1,50 @@
-import {defHttp} from '/@/utils/http/axios';
+import { defHttp } from '/@/utils/http/axios';
 import { useMessage } from "/@/hooks/web/useMessage";
 
 const { createConfirm } = useMessage();
 
 enum Api {
-  list = '/devices/acDevices/list',
-  save='/devices/acDevices/add',
-  edit='/devices/acDevices/edit',
-  deleteOne = '/devices/acDevices/delete',
-  deleteBatch = '/devices/acDevices/deleteBatch',
-  importExcel = '/devices/acDevices/importExcel',
-  exportXls = '/devices/acDevices/exportXls',
+  list = '/devices/acDevicePermission/list',
+  save='/devices/acDevicePermission/add',
+  edit='/devices/acDevicePermission/edit',
+  deleteOne = '/devices/acDevicePermission/delete',
+  deleteBatch = '/devices/acDevicePermission/deleteBatch',
+  importExcel = '/devices/acDevicePermission/importExcel',
+  exportXls = '/devices/acDevicePermission/exportXls',
 }
+
 /**
  * 导出api
  * @param params
  */
 export const getExportUrl = Api.exportXls;
+
 /**
  * 导入api
  */
 export const getImportUrl = Api.importExcel;
+
 /**
  * 列表接口
  * @param params
  */
-export const list = (params) =>
-  defHttp.get({url: Api.list, params});
+export const list = (params) => defHttp.get({ url: Api.list, params });
 
 /**
  * 删除单个
+ * @param params
+ * @param handleSuccess
  */
 export const deleteOne = (params,handleSuccess) => {
   return defHttp.delete({url: Api.deleteOne, params}, {joinParamsToUrl: true}).then(() => {
     handleSuccess();
   });
 }
+
 /**
  * 批量删除
  * @param params
+ * @param handleSuccess
  */
 export const batchDelete = (params, handleSuccess) => {
   createConfirm({
@@ -54,11 +60,13 @@ export const batchDelete = (params, handleSuccess) => {
     }
   });
 }
+
 /**
  * 保存或者更新
  * @param params
+ * @param isUpdate
  */
 export const saveOrUpdate = (params, isUpdate) => {
   let url = isUpdate ? Api.edit : Api.save;
-  return defHttp.post({url: url, params});
+  return defHttp.post({ url: url, params }, { isTransformResponse: false });
 }
